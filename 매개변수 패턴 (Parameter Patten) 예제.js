@@ -49,10 +49,11 @@ function getSecondItem([, b])
 console.log(getSecondItem(fruits)); // banana
 
 // =================================================================================================
+// 나머지 매개변수 (Rest Parameter)
 
 function restSum(...rest)
 {
-    console.log(arguments);
+    console.log(arguments); // 유사 배열 (Array-Like)
     return rest.reduce((acc, cur) =>
     {
         return acc + cur;
