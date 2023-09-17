@@ -94,3 +94,87 @@ date.getDate(); // 2
 date.getHours(); // 23
 date.getMinutes(); // 49
 date.getSeconds(); // 26
+
+// Array Methods
+// forEach 가능
+let arrStr = ["a", "b", "c"];
+
+console.log(arrStr[0]); // "a"
+console.log(arrStr.at(0)); // "a"
+console.log(arrStr.length); // 3 (배열 길이)
+console.log(arrStr.at(-1)); // "c"
+
+let arrStr2 = ["d", "e", "f"];
+let arrStr3 = arrStr.concat(arrStr2); // ["a", "b", "c", "d", "e", "f"]
+// let arrStr3 = [...arrStr, ...arrStr2]; // ["a", "b", "c", "d", "e", "f"]
+
+let arrNum = [1, 2, 3, 4];
+let arrMap = arrNum.map(item => item * 2); // [2, 4, 6, 8]
+let arrMap2 = ArrayMapSample();
+let arrIncludes = arrNum.includes(5); // 해당 데이터가 배열에 포함하는지 확인 {대소문자 구분} (false)
+let arrJoin = arrStr.join(','); // a,b,c
+let arrSome = arrNum.every(item => item < 4); // 요소 중 한개라도 True를 반환하는지 확인 (true)
+let arrEvery = arrNum.every(item => item < 4); // 모든 요소가 True를 반환하는지 확인 (false)
+let arr5 = arrNum.filter(item => item < 3); // True인 모든 요소를 새로운 배열로 반환 ([1, 2])
+let arrFind = arrNum.find(item => item < 3); // True인 첫번째 요소 반환 (1)
+let arrFIndIndex = arrNum.findIndex(item => item < 3); // True인 첫번째 요소의 인덱스 반환 (0)
+let arrReduce = arrNum.reduce((acc, item) => acc + item, 0); // 초기값 0인채로 배열을 loop함. 매 순환시 반환값이 acc로 다음 배열값이 item값으로 들어와서 계산을하고 마지막 acc를 반환 (10)
+
+let arrFlat = [1, 2, [3, 4, [5, 6, [7, 8]]]];
+let arrFlat2 = arrFlat.flat(); // 지정한 깊이까지 이어붙인다 default : 1 ([1, 2, 3, 4, [5, 6, [7, 8]]])
+let arrFlat3 = arrFlat.flat(2); // 지정한 깊이까지 이어붙인다 default : 1 ([1, 2, 3, 4, 5, 6, [7, 8]])
+let arrFlat4 = arrFlat.flat(Infinity); // 지정한 깊이까지 이어붙인다 default : 1 ([1, 2, 3, 4, 5, 6, 7, 8])
+
+arrNum.pop(); // 마지막 요소 제거 ([1, 2, 3]) 
+arrNum.push(7, 8); // 마지막에 하나 이상의 요소 추가 ([1, 2, 3, 7, 8])
+arrNum.unshift(0); // 첫번째에 하나의 요소 추가 ([0, 1, 2, 3, 7, 8])
+arrStr.reverse(); // 배열의 순서 반전 (["c, "b" ,"a"])
+let arrShift = arrStr.shift(); // 배열의 첫 번째 요소를 제거하고, 제거된 요소 반환 (arrShift = "c", arrStr2 = ["b", "a"])
+
+let arrSlice = ["a", "b", "c", "d", "e", "f", "g"];
+console.log(arrSlice.slice(0, 3)); // ["a", "b", "c"]
+console.log(arrSlice.slice(4, -1)); // ["e", "f"]
+console.log(arrSlice.slice(4)); // ["e", "f", "g"]
+
+let arrSort = [4, 17, 2, 103, 3, 1, 0];
+arrSort.sort(); // 텍스트 기반(유니코드)으로 정렬 ([0, 1, 103, 17, 2, 3, 4])
+arrSort.sort((a, b) => a - b); // 순환하면서 순환하는 데이터(a)와 그 다음 데이터(b)를 계산하여 정렬 ([0, 1, 2, 3, 4, 17, 103])
+arrSort.sort((a, b) => b - a); // 순환하면서 순환하는 데이터(a)와 그 다음 데이터(b)를 계산하여 정렬 ([103, 17, 4, 3, 2, 1, 0])
+
+let arrSplice = ["a", "b", "e"];
+arrSplice.splice(2, 0, "c", "d"); // 2번째 인덱스부터 0개의 자리에 'c', 'd'를 추가(교체) (["a", "b", "c", "d", "e"])
+arrSplice.splice(2, 1); // 2번째 인덱스부터 1개의 자리 요소 삭제 (["a", "b", "d", "e"])
+arrSplice.splice(2, 1, 'c'); // 2번째 인덱스부터 1개의 자리에 'c'로 교체 (["a", "b", "c", "e"])
+
+// Array.from(node.children) :: 유사배열을 배열로 변환 (node.children같은 경우 유사배열로 반환하여 forEach가 사용이 힘든경우 사용)
+// Array.isArray(arr) :: 배열인지 확인 (배열이나 객체같은경우 typeof으로는 확인이 힘듬)
+
+function ArrayMapSample()
+{
+    // 다음과 같이 map 매소드 활용 가능
+    let users = 
+    [
+        { name: "Neo", "age" : 85 },
+        { name: "Amy", "age" : 22 },
+        { name: "Lewis", "age" : 11 }
+    ];
+
+    let newUsers = users.map(user => 
+    ({
+        ...user,
+        isValid: true,
+        email: null
+    }));
+        
+    console.log(newUsers);
+}
+
+// Object Methods
+let obj1 = { a: 1, b: 2 };
+let obj2 = { b: 3, c: 4 };
+let obj3 = Object.assign({}, obj1, obj2); // {}에 하나 이상의 Object의 (obj1, obj2) 속성을 복사 {같은 속성이 있을 경우 마지막 값이 들어감} ({ a : 1, b: 3, c: 4 })
+// obj3 = { ...obj1,...obj2 } // 위와 같은 효과
+
+// Object.entries(obj) :: obj를 배열로 만들어 2차원 배열로 반환 {안쓸듯..}
+console.log(Object.keys(obj1)); // 키를 배열로 반환 (["a", "b"])
+console.log(Object.values(obj1)); // 값을 배열로 반환 ([1, 2])
